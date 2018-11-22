@@ -116,7 +116,7 @@
             </div>
         </div>
     </div>
-<p class="tishi"></p>
+    <p class="tishi"></p>
 </body>
 <style>
     .tishi {
@@ -126,7 +126,7 @@
         width: 3rem;
         height: auto;
         padding: .3rem;
-         display: none; 
+        display: none;
         background: rgba(0, 0, 0, .5);
         text-align: center;
         color: #fff;
@@ -134,6 +134,7 @@
         margin-left: -1.5rem;
         z-index: 999999;
     }
+    
     .tan_two_span1 {
         border: 0;
         width: .4rem;
@@ -166,85 +167,89 @@
         $('#tan').hide();
     })
 
-// var q=localStorage.getItem("q")
-// if(q==0){
-//     $('#tan').show();
-// }else{
-//     $('#tan').hide();
-// }
-// $('.tan_two_span1').click(function() {
-//     $('#tan').hide();
-//     localStorage.setItem("q","1")
-// })
-var yzstatus=localStorage.getItem("yzstatus");
-console.log(yzstatus)
-if(yzstatus==0){
-    $('#tan').show();
-}else{
-    $('#tan').hide();
-     $(".tan_two_span1").find("i").css("background","url(./img/yes.png) no-repeat");
-    $(".tan_two_span1").find("i").css("background-size","100% 100%");
-}
-$('.tan_two_span1').click(function() {
-    $('#tan').hide();
-    // $(".tan_two_span1").find("i").css("background","url(./img/yes.png) no-repeat");
-    // $(".tan_two_span1").find("i").css("background-size","100% 100%");
-    if(localStorage.getItem("yzstatus")==1){
-        // $(".had").show();
-        $(".tan_two_span1").find("i").css("background","url(./img/no.png) no-repeat");
-        $(".tan_two_span1").find("i").css("background-size","100% 100%");
-        localStorage.setItem("yzstatus","0");
-
-    }else{
-
-        $(".tan_two_span1").find("i").css("background","url(./img/yes.png) no-repeat");
-        $(".tan_two_span1").find("i").css("background-size","100% 100%");
-        localStorage.setItem("yzstatus","1");
+    // var q=localStorage.getItem("q")
+    // if(q==0){
+    //     $('#tan').show();
+    // }else{
+    //     $('#tan').hide();
+    // }
+    // $('.tan_two_span1').click(function() {
+    //     $('#tan').hide();
+    //     localStorage.setItem("q","1")
+    // })
+    var yzstatus = localStorage.getItem("yzstatus");
+    console.log(yzstatus)
+    if (yzstatus == 0) {
+        $('#tan').show();
+    } else {
+        $('#tan').hide();
+        $(".tan_two_span1").find("i").css("background", "url(./img/yes.png) no-repeat");
+        $(".tan_two_span1").find("i").css("background-size", "100% 100%");
     }
-})
-$('#gg').click(function() {
+    $('.tan_two_span1').click(function() {
+        $('#tan').hide();
+        // $(".tan_two_span1").find("i").css("background","url(./img/yes.png) no-repeat");
+        // $(".tan_two_span1").find("i").css("background-size","100% 100%");
+        if (localStorage.getItem("yzstatus") == 1) {
+            // $(".had").show();
+            $(".tan_two_span1").find("i").css("background", "url(./img/no.png) no-repeat");
+            $(".tan_two_span1").find("i").css("background-size", "100% 100%");
+            localStorage.setItem("yzstatus", "0");
+
+        } else {
+
+            $(".tan_two_span1").find("i").css("background", "url(./img/yes.png) no-repeat");
+            $(".tan_two_span1").find("i").css("background-size", "100% 100%");
+            localStorage.setItem("yzstatus", "1");
+        }
+    })
+    $('#gg').click(function() {
         if ($('#tan').is(':hidden')) {
             $('#tan').show();
         };
-         if(localStorage.getItem("yzstatus")==1){
+        if (localStorage.getItem("yzstatus") == 1) {
             $(".had").show();
-        }else{
+        } else {
             $(".had").hide();
         }
     })
-    var access_token=localStorage.getItem('access_token');
-    function openHref(obj,url){
+    var access_token = localStorage.getItem('access_token');
+
+    function openHref(obj, url) {
         $.ajax({
-            type:"POST",
-            url:"http://sf.wokerr.com/index.php/home/Personal/mine",
-            data:{access_token:access_token},
-            dataType:'json',
-            success:function(data){
-                  console.log(data);
-                  if(data.state==-2){
+            type: "POST",
+            url: "http://sf.wokerr.com/index.php/home/Personal/mine",
+            data: {
+                access_token: access_token
+            },
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+                if (data.state == -2) {
                     $(".tishi").text("请先登录");
                     $(".tishi").fadeIn().delay(500).fadeOut();
-                    obj.attr('href','javascript:;');
-                  }else{
-                    obj.attr('href',url);
-                  }
+                    obj.attr('href', 'javascript:;');
+                } else {
+                    // obj.attr('href',url);
+                    window.location.href = url;
+                }
             }
         });
     }
-    $('.Fzaixiantousu').click(function(){
-        openHref($(this),'Fzaixiantousu.html');
+    $('.Fzaixiantousu').click(function() {
+        openHref($(this), 'Fzaixiantousu.html');
     })
-    $('.Fzaiyuyue').click(function(){
-        openHref($(this),'Fzaiyuyue.html');
+    $('.Fzaiyuyue').click(function() {
+        openHref($(this), 'Fzaiyuyue.html');
     })
-    $('.sbcx_1').click(function(){
-        openHref($(this),'sbcx_1.html');
+    $('.sbcx_1').click(function() {
+        openHref($(this), 'sbcx_1.html');
     })
-    $('.tscx_1').click(function(){
-        openHref($(this),'tscx_1.html');
+    $('.tscx_1').click(function() {
+        openHref($(this), 'tscx_1.html');
     })
-    $('.Fyuyue').click(function(){
-        openHref($(this),'Fyuyue.html');
+    $('.Fyuyue').click(function() {
+        openHref($(this), 'Fyuyue.html');
     })
     $(".fooder").load("footer.html");
     $('.tan_two_span1').click(function() {
@@ -276,7 +281,7 @@ $('#gg').click(function() {
         $(".tan_two_span1 i").css("background-size", "100% 100%");
         $('#tan').show();
     }
-    
+
 
     function getUrlParms(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");

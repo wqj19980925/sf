@@ -124,6 +124,7 @@
         background: url(./img/no.png)no-repeat;
         background-size: 100% 100%;
     }
+    
     .tishi {
         position: fixed;
         top: 50%;
@@ -131,7 +132,7 @@
         width: 3rem;
         height: auto;
         padding: .3rem;
-         display: none; 
+        display: none;
         background: rgba(0, 0, 0, .5);
         text-align: center;
         color: #fff;
@@ -145,39 +146,39 @@
     $(".had").click(function() {
         $('#tan').hide();
     })
-var yzstatus=localStorage.getItem("yzstatus");
-console.log(yzstatus)
-if(yzstatus==0){
-    $('#tan').show();
-}else{
-    $('#tan').hide();
-     $(".tan_two_span1").find("i").css("background","url(./img/yes.png) no-repeat");
-    $(".tan_two_span1").find("i").css("background-size","100% 100%");
-}
-$('.tan_two_span1').click(function() {
-    $('#tan').hide();
-    // $(".tan_two_span1").find("i").css("background","url(./img/yes.png) no-repeat");
-    // $(".tan_two_span1").find("i").css("background-size","100% 100%");
-    if(localStorage.getItem("yzstatus")==1){
-        // $(".had").show();
-        $(".tan_two_span1").find("i").css("background","url(./img/no.png) no-repeat");
-        $(".tan_two_span1").find("i").css("background-size","100% 100%");
-        localStorage.setItem("yzstatus","0");
-
-    }else{
-
-        $(".tan_two_span1").find("i").css("background","url(./img/yes.png) no-repeat");
-        $(".tan_two_span1").find("i").css("background-size","100% 100%");
-        localStorage.setItem("yzstatus","1");
+    var yzstatus = localStorage.getItem("yzstatus");
+    console.log(yzstatus)
+    if (yzstatus == 0) {
+        $('#tan').show();
+    } else {
+        $('#tan').hide();
+        $(".tan_two_span1").find("i").css("background", "url(./img/yes.png) no-repeat");
+        $(".tan_two_span1").find("i").css("background-size", "100% 100%");
     }
-})
-$('#gg').click(function() {
+    $('.tan_two_span1').click(function() {
+        $('#tan').hide();
+        // $(".tan_two_span1").find("i").css("background","url(./img/yes.png) no-repeat");
+        // $(".tan_two_span1").find("i").css("background-size","100% 100%");
+        if (localStorage.getItem("yzstatus") == 1) {
+            // $(".had").show();
+            $(".tan_two_span1").find("i").css("background", "url(./img/no.png) no-repeat");
+            $(".tan_two_span1").find("i").css("background-size", "100% 100%");
+            localStorage.setItem("yzstatus", "0");
+
+        } else {
+
+            $(".tan_two_span1").find("i").css("background", "url(./img/yes.png) no-repeat");
+            $(".tan_two_span1").find("i").css("background-size", "100% 100%");
+            localStorage.setItem("yzstatus", "1");
+        }
+    })
+    $('#gg').click(function() {
         if ($('#tan').is(':hidden')) {
             $('#tan').show();
         };
-         if(localStorage.getItem("yzstatus")==1){
+        if (localStorage.getItem("yzstatus") == 1) {
             $(".had").show();
-        }else{
+        } else {
             $(".had").hide();
         }
     })
@@ -219,36 +220,40 @@ $('#gg').click(function() {
     //     }
     // })
 
-    var access_token=localStorage.getItem('access_token');
-    function openHref(obj,url){
+    var access_token = localStorage.getItem('access_token');
+
+    function openHref(obj, url) {
         $.ajax({
-            type:"POST",
-            url:"http://sf.wokerr.com/index.php/home/Personal/mine",
-            data:{access_token:access_token},
-            dataType:'json',
-            success:function(data){
-                  console.log(data);
-                  if(data.state==-2){
+            type: "POST",
+            url: "http://sf.wokerr.com/index.php/home/Personal/mine",
+            data: {
+                access_token: access_token
+            },
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+                if (data.state == -2) {
                     $(".tishi").text("请先登录");
                     $(".tishi").fadeIn().delay(500).fadeOut();
-                    obj.attr('href','javascript:;');
-                  }else{
-                    obj.attr('href',url);
-                  }
+                    obj.attr('href', 'javascript:;');
+                } else {
+                    // obj.attr('href',url);
+                    window.location.href = url;
+                }
             }
         });
     }
-    $('.Lvshizaixianyuyue').click(function(){
-        openHref($(this),'Lvshizaixianyuyue.html');
+    $('.Lvshizaixianyuyue').click(function() {
+        openHref($(this), 'Lvshizaixianyuyue.html');
     })
-    $('.Lvshiyuyuetoushu').click(function(){
-        openHref($(this),'Lvshiyuyuetoushu.html');
+    $('.Lvshiyuyuetoushu').click(function() {
+        openHref($(this), 'Lvshiyuyuetoushu.html');
     })
-    $('.Lvshiyuyuechaxun').click(function(){
-        openHref($(this),'Lvshiyuyuechaxun.html');
+    $('.Lvshiyuyuechaxun').click(function() {
+        openHref($(this), 'Lvshiyuyuechaxun.html');
     })
-    $('.tscx_4').click(function(){
-        openHref($(this),'tscx_4.html');
+    $('.tscx_4').click(function() {
+        openHref($(this), 'tscx_4.html');
     })
 
     function getUrlParms(name) {
