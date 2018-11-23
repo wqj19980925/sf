@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +9,6 @@
     <link rel="stylesheet" href="./css/public.css">
     <link rel="stylesheet" href="./css/table_Down.css">
 </head>
-
 <body>
     <div id="header">
         <span>相关例表下载</span>
@@ -48,12 +46,12 @@
             <span class="right">2018-8-8</span>
         </div> -->
     </div>
-    <div style="width: 100%;height:3.125rem"></div>
-    <div class="footer"></div>
+<div style="width: 100%;height:3.125rem"></div>
+<div class="footer"></div>
 </body>
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript">
-    $(".footer").load("footer2.html");
+        $(".footer").load("footer2.html");
 </script>
 <script type="text/javascript" src="js/jquery.js"></script>
 <!-- <script type="text/javascript">
@@ -62,6 +60,7 @@
     })
 </script> -->
 <script type="text/javascript">
+   
     function getUrlParms(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
         console.log(reg);
@@ -72,31 +71,29 @@
     }
 
     var type = getUrlParms("type");
-    $.ajax({
-        type: "POST",
-        url: "http://sf.wokerr.com/index.php/home/Data/form",
-        async: false,
-        data: {
-            type: type
-        },
-        dataType: 'json',
-        success: function(data) {
-            console.log(data);
-            var html = "";
-            for (var i = 0; i < data.data.length; i++) {
-                html += `<div class="each right_con" id="${data.data[i].id}">
+     $.ajax({
+            type:"POST",
+            url:"http://sf.wokerr.com/index.php/home/Data/form",
+            async:false,
+            data:{type:type},
+            dataType:'json',
+            success:function(data){
+                console.log(data);
+               var html="";
+               for(var i=0;i<data.data.length;i++){
+                html+=`<div class="each" id="${data.data[i].id}">
                             <span>${data.data[i].title}</span>
+                            <button class="right right_con">查看</button>
                             <span class="right">${data.data[i].ct_time}</span>
                        </div>`
+               }
+               $(".table_down").html(html);
+                
             }
-            $(".table_down").html(html);
-
-        }
-    })
-    $('.right_con').click(function() {
-        var id = $(this).attr("id");
-        window.location.href = "Fxiangguanbiaogexia_1.html?id=" + id;
+     })
+     $('.right_con').click(function () {
+        var id=$(this).parent().attr("id");
+        window.location.href="Fxiangguanbiaogexia_1.html?id="+id;
     })
 </script>
-
 </html>

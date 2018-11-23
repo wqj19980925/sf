@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>附件信息</title>
     <link rel="stylesheet" href="./css/head.css">
@@ -13,24 +13,11 @@
 </head>
 <style>
     .section img {
-        width: 8rem;
-        margin: 1rem;
-        height: 8rem;
-        display: inline-block;
-        float: left;
-    }
-    
-    .img_fj p {
-        width: 100%;
-        padding: .35rem;
-        float: left;
-    }
-    
-    .img_fj div {
-        display: inline-block;
+   width: 8rem;
+    margin: 1rem;
+    height: 8rem;
     }
 </style>
-
 <body>
     <header>
         <div class="header">
@@ -48,74 +35,43 @@
     </header>
     <section>
         <div class="section">
-            <div class="img_fj">
-                <p></p>
-                <div class="dffs">
-                    <img src="./images/fond.jpg" alt="">
-                </div>
-            </div>
-            <!-- <img src="../png/ios/公证员@2x.png" alt="">
-            <img src="../png/ios/公证员@2x.png" alt=""> -->
+            <img src="../png/ios/公证员@2x.png" alt="">
+            <img src="../png/ios/公证员@2x.png" alt="">
         </div>
     </section>
-    <script src="./js/jquery-3.3.1.min.js"></script>
+<script src="./js/jquery-3.3.1.min.js"></script>
 </body>
 <script type="text/javascript">
-    function getUrlParms(name) {
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-        console.log(reg);
-        var r = window.location.search.substr(1).match(reg);
-        if (r != null)
-            return unescape(r[2]);
-        return null;
-    }
-    var access_token = localStorage.getItem("access_token");
-    // var id = getUrlParms("id")
-    var add = localStorage.getItem("fujian");
-    console.log(add);
-    // return false;
-    var id = getUrlParms("id");
-    $.ajax({
-        type: 'post',
-        url: add,
-        data: {
-            access_token: access_token,
-            id: id
-        },
-        dataType: 'json',
-        async: false, //同步异步
-        success: function(data) {
-            console.log(data);
-            var ht = "";
-            var html = "";
-            var djd = "";
-            var kdf;
-            for (var i = 0; i < data.data.priceData.length; i++) {
-                for (var j = 0; j < data.data.upload.length; j++) {
-                    if (data.data.priceData[i].id == data.data.upload[j].pid) {
-                        ht += " <img src = " + data.data.upload[j].savepath + ">";
-                    }
+function getUrlParms(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    console.log(reg);
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null)
+        return unescape(r[2]);
+    return null;
+}
+var access_token=localStorage.getItem("access_token");
+var id = getUrlParms("id");
+$.ajax({
+    type:'post',
+    url:'http://sf.wokerr.com/index.php/home/Handle/tj_bid_list',
+    data:{
+        access_token:access_token,
+        id:id
+    },
+    dataType:'json', 
+    async: false,   //同步异步
+    success:function(data){
+        console.log(data);
+        var htimg,th;
+        htimg = " <img src="+data.data.adversecontrary_img+"><img src="+data.data.adversefront_img+" ><img src="+data.data.proposercontrary_img+" ><img src="+data.data.proposerfront_img+" >";
+            if(data.data.replenish==""||data.data.replenish==null){
+                for(var i=0;i<data.data.replenish.length;i++){
+                  th += "<img src="+data.data.replenish+">"
                 }
-                html += '<div class="img_fj"><p>' + data.data.priceData[i].title + '</p><div class="dffs"> ' + ht + '</div></div>'
-                ht = "";
-            };
-            if (data.data.replenish == "" || data.data.replenish == null) {
-                console.log("sdaf");
-            } else {
-
-                for (var i = 0; i < data.data.replenish.length; i++) {
-
-                    djd += '<img src=' + datad.data.replenish[i]. + ' alt="">'
-                }
-                kdf = '<div class="img_fj"><p></p><div class="dffs">' + djd + '</div></div>'
             }
-
-            $(".section").html(html + kdf);
-
-
-        }
-
-    })
+         $(".section").html(htimg+th);
+    }
+})
 </script>
-
 </html>

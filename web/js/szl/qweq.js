@@ -14,16 +14,16 @@ function tishi(text) {
         $(".tishi").fadeOut()
     }, 1500)
 }
-for(var i=0;i<go_befer.length;i++){
+for (var i = 0; i < go_befer.length; i++) {
     go_befer[i].addEventListener('click', function() {
-    if (cc == 0) {
-        // alert("没有上一页了", '来自史志龙的页面', '哈哈', function() {}, 'div')
-        window.location.replace("Fzaixianshenban.html");
-    } else {
-        cc = cc - 1;
-        $('.sele_each').eq(cc).fadeIn().siblings().fadeOut();
-    }
-    }, false)   
+        if (cc == 0) {
+            // alert("没有上一页了", '来自史志龙的页面', '哈哈', function() {}, 'div')
+            window.location.replace("Fzaixianshenban.html");
+        } else {
+            cc = cc - 1;
+            $('.sele_each').eq(cc).fadeIn().siblings().fadeOut();
+        }
+    }, false)
 }
 
 
@@ -161,7 +161,7 @@ function go_back() {
     if (cc == sele_each.length) {
         tishi("已完成全部题目");
         localStorage.setItem("daan", arr);
-        window.location.replace("Fzaixianshenban.html");
+        window.location.replace("Fzaixianshenban.html?type=0");
         // history.go(0)
     }
 }
