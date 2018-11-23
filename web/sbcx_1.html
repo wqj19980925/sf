@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +10,6 @@
     <link rel="stylesheet" href="./css/public.css">
     <link rel="stylesheet" href="./css/table_Down.css">
 </head>
-
 <body>
     <div id="header">
         <span>查询列表</span>
@@ -37,65 +35,60 @@
             </div>
         </a> -->
     </div>
-    <div class="footer"></div>
+<div class="footer"></div>
 </body>
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript">
-    var access_token = localStorage.getItem("access_token")
-    if (access_token == "") {
-        alert("请登录");
-        window.location.href = "login.html";
-    } else {
-        $.ajax({
-            type: "POST",
-            url: "http://sf.wokerr.com/index.php/home/Personal/mine",
-            data: {
-                access_token: access_token
-            },
-            dataType: 'json',
-            success: function(data) {
-                if (data.state != "1") {
-                    window.location.href = "login.html";
-                }
-
+    var access_token=localStorage.getItem("access_token")
+    if(access_token==""){
+    alert("请登录");
+     window.location.href="login.html";
+}else{
+    $.ajax({
+            type:"POST",
+            url:"http://sf.wokerr.com/index.php/home/Personal/mine",
+            data:{access_token:access_token},
+            dataType:'json',
+            success:function(data){
+                 if(data.state!="1"){
+                     window.location.href="login.html";
+                 }
+                   
 
             }
-        })
-    }
+      })
+}
     $(".footer").load("footer2.html");
     $.ajax({
-        type: 'post',
-        url: 'http://sf.wokerr.com/index.php/Handle/yz_bid_list',
-        data: {
-            access_token: access_token
+        type:'post',
+        url:'http://sf.wokerr.com/index.php/Handle/yz_bid_list',
+        data:{
+            access_token:access_token
         },
-        dataType: 'json',
-        async: true, //同步异步
-        success: function(data) {
+        dataType:'json', 
+        async: true,   //同步异步
+        success:function(data){
             console.log(data)
-            if (data.state == "-2") {
+            if(data.state=="-2"){
                 alert("请登录")
-                window.location.href = "login.html";
+                window.location.href="login.html";
             }
-            var html = "";
-            var status = ['待审核', '审核中', '审核通过', '补充材料', '已撤销', '已完成未评价', '已完成已评价'];
-            for (var i = 0; i < data.data.length; i++) {
-                html += `<a class="ite" title="" id="${data.data[i].id}">
+            var html="";
+            for(var i=0;i<data.data.length;i++){
+                html+=`<a class="ite" title="" id="${data.data[i].id}">
                             <div class="each">
                                 <span>${data.data[i].name}</span>
-                                <span>${status[data.data[i].status]}</span>
                                 <span class="right">${data.data[i].ct_time}</span>
                             </div>
                         </a>`;
             }
             $(".table_down").html(html);
-            $(".ite").click(function() {
-                var id = $(this).attr("id");
+            $(".ite").click(function(){
+                var id=$(this).attr("id");
                 console.log(id);
-                window.location.href = "Fshenbancx.html?ID=" + id;
+                window.location.href="Fshenbancx.html?ID="+id;
             })
         }
     })
 </script>
-
 </html>

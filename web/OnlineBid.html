@@ -344,7 +344,7 @@
     <div class="footer"></div>
     <!-- =============================费用详情================== -->
     <div class="sujubioa"></div>
-    <div class="jiazai"><img src="./img/1.png" alt=""></div>
+    <div class="jiazai"><img src="./img/jiazaia.png" alt=""></div>
 </body>
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript">
@@ -433,7 +433,7 @@
         $(".list2").show();
     })
     var lksd = [];
-
+    var imgnum = 0;
     $(".next2").click(function() {
         if ($('.radio1').is(":checked") == false) {
             $(".tishi").text("请选择业务类型");
@@ -459,7 +459,6 @@
             for (var i = 0; i < $(".radio1").length; i++) {
                 if ($(".radio1").eq(i).is(":checked") == true) {
                     fw2 = $(".radio1").eq(i).attr("id");
-                    console.log(fw2);
                 }
             };
             localStorage.setItem("price", fw2)
@@ -473,6 +472,10 @@
                 dataType: "json",
                 success: function(data) {
                     console.log(data);
+                    if (data.data.length == 0) {
+                        imgnum = 1;
+                        $(".nav_qita").hide();
+                    }
                     var html = "";
                     var ht = '';
                     var htmldk = "";
@@ -502,7 +505,7 @@
                         lksd.push(data.data[i].id)
                         for (var j = 0; j < parseInt(data.data[i].file_num); j++) {
 
-                            ht += '<div class="mine_img"><input id=' + data.data[i].id + ' path="imgdf' + i + j + '" class="mine_file" type="file"><img class="imgdf' + i + j + '" src="./img/tianjia.jpg" alt=""></div>'
+                            ht += '<div class="mine_img"><input id=' + data.data[i].id + ' path="imgdf' + i + j + '" class="mine_file" type="file"><img class="dffd  imgdf' + i + j + '" src="./img/tianjia.jpg" alt=""></div>'
 
                         };
                         // console.log(ht);
@@ -521,7 +524,20 @@
     var imgbase = [];
     var pth = [];
     $(".next3").click(function() {
-
+        if (imgnum == 1) {
+            var dd = document.getElementsByClassName("dffd");
+            for (var i = 0; i < dd.length; i++) {
+                if (dd[i].src.length < 500) {
+                    $(".tishi").text("请完善附件资料");
+                    $(".tishi").fadeIn().delay(800).fadeOut();
+                    return false;
+                }
+            }
+        }
+        // var
+        // if ($(".nav_qita .mine_img").find("img").attr("src").length < 500) {
+        //     alert("fsda");
+        // }
 
         for (var i = 0; i < $('.nav_qita .mine_info').length; i++) {
             var imgHTML = "";
@@ -530,7 +546,6 @@
                 var str2 = str.split(',')[1];
                 var id = $('.nav_qita .mine_info').eq(i).children('div').children('.mine_img').eq(j).children('input').attr('id');
                 // imgbase[i][j] = new Array();var activeSubjectsObject = {};
-
                 // activeSubjectsObject.name = 'path';
                 // activeSubjectsObjects.name = 'id';
                 imgHTML += str2 + ';';
@@ -1181,7 +1196,7 @@
 
 
     $("#mid_lit").click(function() {
-        $(".jiazai").fadeIn();
+        $(".jiazai").show();
         if (access_token == "" || access_token == undefined || access_token == null) {
 
             gz_phone = $(".gz_lianxi").val();
@@ -1208,7 +1223,7 @@
                     is_call: fw,
                     language_id: lk5,
                     use_id: lk4,
-                    area_id: lk3,
+                    country_id: lk3,
                     bussiness_id: leixing,
                     jgry_tel: gz_phone,
                     jgry_name: gzy_name1,
@@ -1271,7 +1286,7 @@
                     is_call: fw2,
                     language_id: lk5,
                     use_id: lk4,
-                    area_id: lk3,
+                    country_id: lk3,
                     bussiness_id: leixing,
                     jgry_tel: gz_phone,
                     jgry_name: gzy_name1,

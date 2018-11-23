@@ -16,17 +16,7 @@
     <script src="./js/mobileSelect.js"></script>
 </head>
 <style>
-    .bq_conFiles{
-            padding-left: 7rem;
-        }
-        .bq_conFile{
-            position:relative;
-            display:inline-block;
-        }
-        .bq_conFile input{
-            top:0;
-            left:0;
-        }
+
 </style>
 </head>
 
@@ -37,11 +27,11 @@
     </div>
     <div class="nav_fir">
         <div class="nav_first">
-           <input type="text" placeholder="请选择" readonly onfocus='this.blur();' class="gzc">
+           <input type="text" readonly onfocus='this.blur();' class="gzc">
             <span>法律援助中心</span>
         </div>
         <div class="nav_first">
-                <input type="text" placeholder="请选择" readonly onfocus='this.blur();' class="gzry">
+                <input type="text" readonly onfocus='this.blur();' class="gzry">
             <!-- <select class="sqrlx">
                 <option value="">请选择</option>
                 <option value="">123</option>
@@ -50,18 +40,18 @@
             </select> -->
             <span>申请人类型</span>
         </div>
-        <!-- <div class="nav_first">
+        <div class="nav_first">
                 <input type="text" readonly onfocus='this.blur();' class="sqrlx">
-            <select class="gzry" >
+            <!-- <select class="gzry" >
                 <option value="">请选择</option>
                 <option value="">123</option>
                 <option value="">123</option>
                 <option value="">123</option>
-            </select>
+            </select> -->
             <span>选择公证员</span>
-        </div> -->
+        </div>
         <div class="nav_first" style="height:2rem">
-            <input type="text" placeholder="请选择" readonly onfocus='this.blur();' id="myselect">
+            <input type="text" readonly onfocus='this.blur();' id="myselect">
             <!-- <select id="myselect">
                 <option value="">请选择</option>
                 <option value="1">123</option>
@@ -75,31 +65,23 @@
          <p></p>
         </div>
         <div class="nav_first">
-            <input type="text" placeholder="请选择" class="date3" onfocus='this.blur();' placeholder="请选择时间">
+            <input type="text" class="date3" onfocus='this.blur();' placeholder="请选择时间">
             <span>选择时间</span>
         </div>
         <div class="nav_first" style="height: 5rem">
-            <textarea name="" placeholder="请填写" id="mytext"></textarea>
+            <textarea name="" id="mytext"></textarea>
             <span style="line-height:1rem">填写备注</span>
         </div>
     </div>
    <div class="BidQuery">
         <div class="bq_con" >
             <span class="left" style="float:left">上传附件</span>
-            <div class="bq_conFiles">
-                <!-- <div class="bq_conFile">
-                    <img src="./img/tianjia.jpg" class="img1" alt="" style="margin-left:1%;">
-                    <input type="file" class="img_1 imgde" name="">
-                </div>
-                <div class="bq_conFile">
-                    <img src="./img/tianjia.jpg" class="img1" alt="" style="margin-left:1%;">
-                    <input type="file" class="img_1 imgde" name="">
-                </div>
-                <div class="bq_conFile">
-                    <img src="./img/tianjia.jpg" class="img1" alt="" style="margin-left:1%;">
-                    <input type="file" class="img_1 imgde" name="">
-                </div> -->
-            </div>
+            <img src="./img/tianjia.jpg" class="img1" alt="" style="margin-left:1%;">
+            <input type="file" class="img_1 imgde" name="">
+            <img src="./img/tianjia.jpg" class="img2" alt="">
+             <input type="file" class="img_2 imgde" name="">
+            <img src="./img/tianjia.jpg" class="img3" alt="">
+             <input type="file" class="img_3 imgde" name="">
            <!--  <p style="margin-left:6.875rem;">可上传1-5张图片</span> -->
         </div>
     </div>
@@ -416,37 +398,30 @@ $.ajax({
             callback: function(indexArr, data) {
                 $("#myselect").val(data);
                 // order_note =data;
-                var imgFileHTML="";
                 for(var i=0;i<xzqw.length;i++){
                     if(data==xzqw[i].title){
                         order_type =xzqw[i].id; 
-                        for(var j=0;j<xzqw[i].file_num;j++){
-                            imgFileHTML+=`<div class="bq_conFile">
-                                            <img src="./img/tianjia.jpg" class="img1" alt="" style="margin-left:1%;">
-                                            <input type="file" class="img_1 imgde" name="">
-                                        </div>`;
-                        }
                     }
-                }
-                $('.bq_conFiles').html(imgFileHTML);
+                };
             }
     })
     }
 })
      // });
-     $('.bq_conFiles').on('change','.img_1',function() {
-        var file = this.files[0];
-        var bq_conFile=$(this);
-        if (window.FileReader) {
-            var reader = new FileReader();
-            reader.readAsDataURL(file);
-            //监听文件读取结束后事件    
-            reader.onloadend = function(e) {
-                imgde1 = e.target.result.split(",")[1];
-                bq_conFile.prev().attr("src", e.target.result)
-            };
-        }
-    });
+$(".img_1").change(function(){   
+     var file = this.files[0];
+       if (window.FileReader) {
+                var reader = new FileReader();    
+                reader.readAsDataURL(file);    
+                //监听文件读取结束后事件    
+              reader.onloadend = function (e) {
+                   // 图片base64
+                   // var  dd = e.target.result.indexOf(",");
+                    imgde1=e.target.result.split(",")[1];
+                   $(".img1").attr("src",e.target.result)
+                };    
+           }
+});
 $(".img_2").change(function(){
      var file = this.files[0];
        if (window.FileReader) {    
@@ -477,14 +452,7 @@ $(".btn").click(function(){
     // order_time = new Data($("#date3").val());
     order_time =  (new Date()).valueOf($("#date3").val());
     console.log(order_time);
-    var upload="";
-    for(var i=0;i<$('.imgde').length;i++){
-        if(i==$('.imgde').length-1){
-            upload+=$('.imgde').eq(i).attr('src').split(',')[1];
-        }else{
-            upload+=$('.imgde').eq(i).attr('src').split(',')[1]+';';
-        }
-    }
+    var upload = imgde1+";"+imgde2+";"+imgde3;
     console.log(jg_id)
     if(access_token.length==0){
         tishi("请登录");return false;
@@ -493,6 +461,9 @@ $(".btn").click(function(){
         return false;
     }else if($(".gzry").val().length==0){
         tishi("请选择申请人");
+        return false;
+    }else if($(".sqrlx").val().length==0){
+        tishi("请选择公证员");
         return false;
     }else if($("#myselect").val().length==0){
         tishi("请选择类别");
@@ -515,6 +486,8 @@ $(".btn").click(function(){
                     type:"2",
                     jg_id:jg_id,
                     jg_name:jg_name,
+                    jgry_id:jgry_id,
+                    jgry_name:jgry_name,
                     order_note:order_note,
                     order_time:order_time,
                     order_type:order_type,
